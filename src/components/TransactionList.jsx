@@ -1,4 +1,4 @@
-export default function TransactionList({ transacoes }) {
+export default function TransactionList({ transacoes, onDelete }) {
   return (
     <div className="bg-white shadow rounded p-4">
       <h2 className="text-lg font-semibold mb-4">Histórico</h2>
@@ -24,6 +24,12 @@ export default function TransactionList({ transacoes }) {
             >
               {t.tipo === "saida" ? "-" : "+"} R$ {t.valor.toFixed(2)}
             </span>
+            <button
+              onClick={() => onDelete(t.id)}
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+            >
+              Excluir
+            </button>
           </li>
         ))}
       </ul>

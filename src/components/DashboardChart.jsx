@@ -1,7 +1,15 @@
 import {
-  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, Legend
-} from 'recharts';
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
 
 const DashboardChart = ({ transactions }) => {
   // Agrupando saldo acumulado por data
@@ -9,30 +17,30 @@ const DashboardChart = ({ transactions }) => {
   let saldoAcumulado = 0;
 
   const porData = transactions
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .sort((a, b) => new Date(a.data) - new Date(b.data))
     .map((tx) => {
-      saldoAcumulado += tx.type === 'entrada' ? tx.amount : -tx.amount;
+      saldoAcumulado += tx.tipo === "entrada" ? tx.valor : -tx.valor;
       return {
-        date: new Date(tx.date).toLocaleDateString(),
+        date: new Date(tx.data).toLocaleDateString(),
         saldo: saldoAcumulado,
       };
     });
 
   // Dados para o gráfico de pizza
   const entradas = transactions
-    .filter((tx) => tx.type === 'entrada')
-    .reduce((acc, tx) => acc + tx.amount, 0);
+    .filter((t) => t.tipo === "entrada")
+    .reduce((acc, t) => acc + t.valor, 0);
 
   const saidas = transactions
-    .filter((tx) => tx.type === 'saida')
-    .reduce((acc, tx) => acc + tx.amount, 0);
+    .filter((t) => t.tipo === "saida")
+    .reduce((acc, t) => acc + t.valor, 0);
 
   const pieData = [
-    { name: 'Entradas', value: entradas },
-    { name: 'Saídas', value: saidas },
+    { name: "Entradas", value: entradas },
+    { name: "Saídas", value: saidas },
   ];
 
-  const COLORS = ['#22c55e', '#ef4444']; // Verde e Vermelho
+  const COLORS = ["#22c55e", "#ef4444"]; // Verde e Vermelho
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10 w-full">
@@ -44,7 +52,12 @@ const DashboardChart = ({ transactions }) => {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="saldo" stroke="#3b82f6" strokeWidth={3} />
+            <Line
+              type="monotone"
+              dataKey="saldo"
+              stroke="#3b82f6"
+              strokeWidth={3}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

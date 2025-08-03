@@ -24,8 +24,13 @@ export default function Dashboard() {
     navigate("/login");
   };
 
-  const handleAdd = (nova) => {
-    setTransacoes((prev) => [nova, ...prev]);
+  const handleAdd = (transacao) => {
+    setTransacoes([...transacoes, transacao]);
+  };
+
+  const handleDelete = (id) => {
+    const novas = transacoes.filter((t) => t.id !== id);
+    setTransacoes(novas);
   };
 
   const entradas = transacoes
@@ -35,14 +40,6 @@ export default function Dashboard() {
     .filter((t) => t.tipo === "saida")
     .reduce((acc, t) => acc + t.valor, 0);
   const saldo = entradas - saidas;
-
-  const transactions = [
-    { id: 1, type: "entrada", amount: 500, date: "2025-07-01" },
-    { id: 2, type: "saida", amount: 200, date: "2025-07-03" },
-    { id: 3, type: "entrada", amount: 300, date: "2025-07-07" },
-    { id: 4, type: "saida", amount: 150, date: "2025-07-10" },
-    { id: 5, type: "entrada", amount: 1500, date: "2025-07-11"}
-  ];
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 p-4">
@@ -85,8 +82,8 @@ export default function Dashboard() {
       </section>
 
       <TransactionForm onAdd={handleAdd} />
-      <TransactionList transacoes={transacoes} />
-      <DashboardChart transactions={transactions}/>
+      <TransactionList transacoes={transacoes} onDelete={handleDelete} />
+      <DashboardChart transactions={transacoes}/>
     </div>
   );
 }
