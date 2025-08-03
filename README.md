@@ -1,4 +1,4 @@
-# 💸 Dashboard Financeiro
+# 💸 FinTrack - Dashboard Financeiro
 
 Um aplicativo web desenvolvido em **React.js** para controle de finanças pessoais. Permite o registro de transações (entradas e saídas), cálculo automático de saldo real, visualização de dados com gráficos interativos, além de um layout responsivo com **Tailwind CSS**.
 
@@ -10,11 +10,9 @@ Um aplicativo web desenvolvido em **React.js** para controle de finanças pessoa
 - 📊 Visualização de gráficos (pizza e linha) com **Recharts**
 - 💰 Cálculo automático do saldo total
 - 🧾 Histórico de transações
-- 🌗 Alternância de tema claro/escuro
 - 🗑 Deleção de transações
 - 💾 Persistência de dados com `localStorage`
 - 📱 Layout responsivo e moderno com Tailwind
-- 🖼 Favicon personalizado
 
 ---
 
@@ -35,14 +33,17 @@ src/
 ├── components/             # Componentes reutilizáveis
 │   ├── TransactionForm.jsx
 │   ├── TransactionList.jsx
-│   ├── Summary.jsx
-│   ├── ThemeToggle.jsx
-│   └── Charts.jsx
-├── hooks/                  # (Opcional) Hooks personalizados
+│   ├── DashboardChart.jsx
+├── context
+│   ├── AuthContext.jsx     # Lógica da autenticação (user)
+├── pages
+│   ├── Dashboard.jsx       # Dashboard do usuário
+│   ├── Login.jsx           # Página de login
+│   ├── Register.jsx        # Página de cadastro
+├── routes/                 # Sistema de rotas
+├── services/               # Conexão com o firebase
 ├── App.jsx                 # Componente principal
 ├── index.js                # Ponto de entrada do app
-├── styles/                 # Arquivos de estilo (se necessário)
-└── utils/                  # Funções utilitárias (ex: cálculos)
 ```
 
 ---
@@ -59,8 +60,8 @@ src/
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/dashboard-financeiro.git
-cd dashboard-financeiro
+git clone https://github.com/LeonardoCaml/fintrack.git
+cd fintrack
 ```
 
 2. Instale as dependências:
@@ -82,7 +83,7 @@ npm run dev
 1. Preencha o formulário com a descrição, valor e tipo da transação.
 2. Clique em "Adicionar Transação".
 3. As transações serão salvas no `localStorage`.
-4. Use o botão 🗑 para deletar transações.
+4. Use o botão "Excluir" para deletar transações.
 5. Visualize os gráficos atualizados em tempo real.
 
 ---
@@ -93,12 +94,7 @@ npm run dev
 - Autenticação de usuários (Google, Email e Senha)
 - Filtro por data e categorias
 - Exportação de relatórios em PDF ou Excel
-
----
-
-## 📸 Preview
-
-<img src="src/assets/preview.png" alt="preview do dashboard" width="100%"/>
+- Alternância de tema claro/escuro
 
 ---
 
@@ -110,4 +106,4 @@ Este projeto está sob a licença MIT.
 
 ## 🙌 Autor
 
-Feito com 💚 por [Seu Nome](https://github.com/seu-usuario)
+Feito com 💚 por [Leonardo Camelo](https://github.com/LeonardoCaml)
