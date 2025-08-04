@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { adicionarTransacao } from "../services/firestore"
 
 export default function TransactionForm({ onAdd }) {
   const [descricao, setDescricao] = useState("");
@@ -18,6 +19,7 @@ export default function TransactionForm({ onAdd }) {
       data: new Date().toLocaleDateString("pt-BR"),
     };
 
+    adicionarTransacao(novaTransacao)
     onAdd(novaTransacao);
     setDescricao("");
     setValor("");

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "../components/ThemeToggle";
+import { buscarTransacoes, deletarTransacao } from "../services/firestore";
 import TransactionForm from "../components/TransactionForm";
 import TransactionList from "../components/TransactionList";
 import DashboardChart from "../components/DashboardChart";
@@ -11,13 +13,12 @@ export default function Dashboard() {
   const [transacoes, setTransacoes] = useState([]);
 
   useEffect(() => {
-    const dadosSalvos = localStorage.getItem("fintrack-transacoes");
-    if (dadosSalvos) setTransacoes(JSON.parse(dadosSalvos));
+    async function carregar() {
+      const dados = await buscarTransacoes();
+      setTransacoes(dados);
+    }
+    carregar();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("fintrack-transacoes", JSON.stringify(transacoes));
-  }, [transacoes]);
 
   const handleLogout = async () => {
     await logout();
@@ -28,9 +29,10 @@ export default function Dashboard() {
     setTransacoes([...transacoes, transacao]);
   };
 
-  const handleDelete = (id) => {
-    const novas = transacoes.filter((t) => t.id !== id);
-    setTransacoes(novas);
+  const handleDelete = async (id) => {
+    await deletarTransacao(id);
+    const dados = await buscarTransacoes();
+    setTransacoes(dados);
   };
 
   const entradas = transacoes
@@ -42,11 +44,12 @@ export default function Dashboard() {
   const saldo = entradas - saidas;
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 p-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-6xl font-bold">FinTrack</h1>
         <div className="flex items-center gap-4">
-          <span className="text-sm">Olá, {user?.email}</span>
+          <span className="text-sm hidden md:block">Olá, {user?.email}</span>
+          {/* <ThemeToggle /> */}
           <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm"
@@ -83,7 +86,7 @@ export default function Dashboard() {
 
       <TransactionForm onAdd={handleAdd} />
       <TransactionList transacoes={transacoes} onDelete={handleDelete} />
-      <DashboardChart transactions={transacoes}/>
+      <DashboardChart transactions={transacoes} />
     </div>
   );
 }
