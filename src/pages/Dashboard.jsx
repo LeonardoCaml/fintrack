@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import ThemeToggle from "../components/ThemeToggle";
-import { buscarTransacoes, deletarTransacao } from "../services/firestore";
 import TransactionForm from "../components/TransactionForm";
 import TransactionList from "../components/TransactionList";
 import DashboardChart from "../components/DashboardChart";
@@ -10,29 +8,36 @@ import DashboardChart from "../components/DashboardChart";
 export default function Dashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
   const [transacoes, setTransacoes] = useState([]);
 
+  // Carregar transações do localStorage ao iniciar
   useEffect(() => {
-    async function carregar() {
-      const dados = await buscarTransacoes();
-      setTransacoes(dados);
+    const dados = localStorage.getItem("transacoes");
+    if (dados) {
+      setTransacoes(JSON.parse(dados));
     }
-    carregar();
   }, []);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
+  // Salvar transações sempre que a lista mudar
+  useEffect(() => {
+    localStorage.setItem("transacoes", JSON.stringify(transacoes));
+  }, [transacoes]);
 
+  // Função para adicionar
   const handleAdd = (transacao) => {
     setTransacoes([...transacoes, transacao]);
   };
 
-  const handleDelete = async (id) => {
-    await deletarTransacao(id);
-    const dados = await buscarTransacoes();
-    setTransacoes(dados);
+  // 🔥 Função para deletar
+  const handleDelete = (id) => {
+    const novas = transacoes.filter((t) => t.id !== id);
+    setTransacoes(novas);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
   };
 
   const entradas = transacoes
@@ -49,7 +54,6 @@ export default function Dashboard() {
         <h1 className="text-6xl font-bold">FinTrack</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm hidden md:block">Olá, {user?.email}</span>
-          {/* <ThemeToggle /> */}
           <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm"

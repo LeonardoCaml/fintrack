@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { adicionarTransacao } from "../services/firestore"
 
 export default function TransactionForm({ onAdd }) {
   const [descricao, setDescricao] = useState("");
@@ -19,7 +18,6 @@ export default function TransactionForm({ onAdd }) {
       data: new Date().toLocaleDateString("pt-BR"),
     };
 
-    adicionarTransacao(novaTransacao)
     onAdd(novaTransacao);
     setDescricao("");
     setValor("");
@@ -27,10 +25,7 @@ export default function TransactionForm({ onAdd }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white shadow rounded p-4 mb-6 grid gap-4 md:grid-cols-4"
-    >
+    <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-4 bg-white p-4 rounded shadow mb-4">
       <input
         type="text"
         placeholder="Descrição"
@@ -55,7 +50,7 @@ export default function TransactionForm({ onAdd }) {
       </select>
       <button
         type="submit"
-        className="md:col-span-4 bg-green-600 text-white py-2 rounded hover:bg-green-700"
+        className="bg-green-600 text-white py-2 rounded hover:bg-green-700 md:col-span-4"
       >
         Adicionar Transação
       </button>
