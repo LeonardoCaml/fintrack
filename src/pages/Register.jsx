@@ -21,17 +21,17 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen w-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+    <div className="min-h-screen w-screen flex flex-col items-center justify-center p-4 bg-gray-100 dark:bg-zinc-900">
       <form
         onSubmit={handleRegister}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md"
+        className="bg-white dark:bg-zinc-800 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Criar Conta</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Criar Conta</h2>
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-2 mb-4 border rounded dark:text-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -39,7 +39,7 @@ export default function Register() {
         <input
           type="password"
           placeholder="Senha"
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-2 mb-4 border rounded dark:text-white"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           required
@@ -53,7 +53,7 @@ export default function Register() {
         </button>
         <p
           onClick={() => navigate("/login")}
-          className="mt-4 text-sm text-center text-blue-600 cursor-pointer"
+          className="mt-4 text-sm text-center text-blue-600 dark:text-blue-400 cursor-pointer"
         >
           Já tem conta? Faça login
         </p>

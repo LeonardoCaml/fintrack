@@ -1,10 +1,12 @@
 export default function TransactionList({ transacoes, onDelete }) {
   return (
-    <div className="bg-white shadow rounded p-4">
+    <div className="bg-white dark:bg-zinc-800 shadow rounded p-4">
       <h2 className="text-lg font-semibold mb-4">Histórico</h2>
       <ul className="space-y-2 max-h-60 overflow-y-auto">
         {transacoes.length === 0 && (
-          <p className="text-sm text-gray-400">Nenhuma transação registrada.</p>
+          <p className="text-sm text-zinc-400 dark:text-white">
+            Nenhuma transação registrada.
+          </p>
         )}
         {transacoes.map((t) => (
           <li
@@ -15,11 +17,13 @@ export default function TransactionList({ transacoes, onDelete }) {
           >
             <div>
               <p className="font-medium">{t.descricao}</p>
-              <p className="text-xs text-gray-500">{t.data}</p>
+              <p className="text-xs text-zinc-500">{t.data}</p>
             </div>
             <span
               className={`text-sm font-bold ${
-                t.tipo === "entrada" ? "text-green-600" : "text-red-600"
+                t.tipo === "entrada"
+                  ? "text-green-600"
+                  : "text-red-600 dark:text-red-500"
               }`}
             >
               {t.tipo === "saida" ? "-" : "+"} R$ {t.valor.toFixed(2)}

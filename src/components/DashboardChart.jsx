@@ -45,7 +45,7 @@ const DashboardChart = ({ transactions }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10 w-full">
       {/* Gráfico de Linha */}
-      <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl shadow">
+      <div className="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow">
         <h2 className="text-lg font-semibold mb-4">Saldo ao Longo do Tempo</h2>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={porData}>
@@ -63,7 +63,7 @@ const DashboardChart = ({ transactions }) => {
       </div>
 
       {/* Gráfico de Pizza */}
-      <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl shadow">
+      <div className="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow">
         <h2 className="text-lg font-semibold mb-4">Distribuição</h2>
         <ResponsiveContainer width="100%" height={250}>
           <PieChart>

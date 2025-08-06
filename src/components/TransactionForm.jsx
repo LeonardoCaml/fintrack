@@ -25,13 +25,13 @@ export default function TransactionForm({ onAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-4 bg-white p-4 rounded shadow mb-4">
+    <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-4 bg-white dark:bg-zinc-800 p-4 rounded shadow mb-4">
       <input
         type="text"
         placeholder="Descrição"
         value={descricao}
         onChange={(e) => setDescricao(e.target.value)}
-        className="p-2 border rounded col-span-2"
+        className="p-2 border rounded md:col-span-2"
       />
       <input
         type="number"
@@ -45,8 +45,8 @@ export default function TransactionForm({ onAdd }) {
         onChange={(e) => setTipo(e.target.value)}
         className="p-2 border rounded"
       >
-        <option value="entrada">Entrada</option>
-        <option value="saida">Saída</option>
+        <option className="dark:bg-zinc-900" value="entrada">Entrada</option>
+        <option className="dark:bg-zinc-900" value="saida">Saída</option>
       </select>
       <button
         type="submit"

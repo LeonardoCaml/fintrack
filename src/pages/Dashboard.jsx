@@ -49,9 +49,9 @@ export default function Dashboard() {
   const saldo = entradas - saidas;
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
+    <div className="min-h-screen bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 p-4">
       <header className="flex justify-between items-center mb-6">
-        <h1 className="text-6xl font-bold">FinTrack</h1>
+        <h1 className=" text-4xl md:text-6xl font-bold">FinTrack</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm hidden md:block">Olá, {user?.email}</span>
           <button
@@ -64,25 +64,25 @@ export default function Dashboard() {
       </header>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white shadow rounded p-4">
-          <h2 className="text-sm text-gray-600">Saldo Atual</h2>
+        <div className="bg-white dark:bg-zinc-800 shadow rounded p-4">
+          <h2 className="text-sm text-zinc-600 dark:text-white">Saldo Atual</h2>
           <p
             className={`text-xl font-bold ${
-              saldo >= 0 ? "text-green-600" : "text-red-600"
+              saldo >= 0 ? "text-green-600" : "text-red-600 dark:text-red-500"
             }`}
           >
             R$ {saldo.toFixed(2)}
           </p>
         </div>
-        <div className="bg-white shadow rounded p-4">
-          <h2 className="text-sm text-gray-600">Entradas</h2>
+        <div className="bg-white dark:bg-zinc-800 shadow rounded p-4">
+          <h2 className="text-sm text-zinc-600 dark:text-white">Entradas</h2>
           <p className="text-xl font-bold text-green-600">
             R$ {entradas.toFixed(2)}
           </p>
         </div>
-        <div className="bg-white shadow rounded p-4">
-          <h2 className="text-sm text-gray-600">Saídas</h2>
-          <p className="text-xl font-bold text-red-600">
+        <div className="bg-white dark:bg-zinc-800 shadow rounded p-4">
+          <h2 className="text-sm text-zinc-600 dark:text-white">Saídas</h2>
+          <p className="text-xl font-bold text-red-600 dark:text-red-500">
             R$ {saidas.toFixed(2)}
           </p>
         </div>
