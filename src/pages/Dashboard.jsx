@@ -1,17 +1,11 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import TransactionForm from "../components/TransactionForm";
 import TransactionList from "../components/TransactionList";
 import DashboardChart from "../components/DashboardChart";
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
   const [transacoes, setTransacoes] = useState([]);
 
-  // Carregar transações do localStorage ao iniciar
   useEffect(() => {
     const dados = localStorage.getItem("transacoes");
     if (dados) {
@@ -19,25 +13,17 @@ export default function Dashboard() {
     }
   }, []);
 
-  // Salvar transações sempre que a lista mudar
   useEffect(() => {
     localStorage.setItem("transacoes", JSON.stringify(transacoes));
   }, [transacoes]);
 
-  // Função para adicionar
   const handleAdd = (transacao) => {
     setTransacoes([...transacoes, transacao]);
   };
 
-  // 🔥 Função para deletar
   const handleDelete = (id) => {
     const novas = transacoes.filter((t) => t.id !== id);
     setTransacoes(novas);
-  };
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
   };
 
   const entradas = transacoes
@@ -53,13 +39,7 @@ export default function Dashboard() {
       <header className="flex justify-between items-center mb-6">
         <h1 className=" text-4xl md:text-6xl font-bold">FinTrack</h1>
         <div className="flex items-center gap-4">
-          <span className="text-sm hidden md:block">Olá, {user?.email}</span>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm"
-          >
-            Sair
-          </button>
+          <span className="text-sm hidden md:block">Olá, Leonardo</span>
         </div>
       </header>
 
